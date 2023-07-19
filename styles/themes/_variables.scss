@@ -1,0 +1,7 @@
+$borderRadius: 5px;
+$boxShadow:  0px 20px 30px var(--color-boxShadow);
+
+@function rem($px) {
+  $remSize: calc($px / 16);
+  @return #{$remSize}rem;
+}

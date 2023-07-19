@@ -1,0 +1,188 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #990000;
+  color: var(--text-header-color);
+  z-index: 999;
+  width: 100%;
+  height: 80px;
+  transition: 0.5s all;
+
+  .logo {
+    flex-shrink: 0;
+    img {
+      object-fit: contain;
+    }
+  }
+
+  .list-menu {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    text-transform: uppercase;
+    font-family: 'Sarabun-bold', sans-serif !important;
+  }
+
+  .header-link {
+    color: var(--text-color-header);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    &.active {
+      color: var(--color-primary);
+    }
+  }
+
+  .btn-common.contact {
+    padding:  rem(7) rem(36);
+    background-color: var(--color-primary);
+    border-radius: 0;
+    border-bottom-left-radius: rem(20);
+    border-top-right-radius: $borderRadius;
+    height: auto;
+  }
+
+  .menu-item {
+    margin: 0 rem(16);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;    
+    &:hover {
+      .header-link {
+        color: var(--color-primary);
+      }
+      .sub-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .sub-menu {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      visibility: hidden;
+      opacity: 0;
+      transition: all .15s ease-in-out;
+      padding-left: 0;
+      margin-bottom: 0;
+      margin-top: 0;
+      box-shadow: $boxShadow;
+      border-top: 4px solid var(--color-primary);
+      transform: translateY(10px);
+      background-color: #fff;
+      .sub-menu-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: rem(10) rem(20);
+        color: var(--text-body-color);
+        white-space: nowrap;
+        text-transform: uppercase;
+        position: relative;
+        &:hover a{
+          color: var(--color-primary);
+        }
+        &.active  {
+          .child__sub-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      }
+      
+    }
+    .child__sub-menu {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      transform: translateX(-20px);
+      visibility: hidden;
+      opacity: 0;
+      transition: all .15s ease-in-out;
+      background-color: #fff;
+      .child__sub-menu-item {
+        display: flex;
+        padding: rem(10) rem(20);
+        cursor: pointer;
+      }
+    }
+    &.language {
+      width: rem(28);
+      span {
+        text-decoration: underline;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+    &.search {
+      margin-left: rem(24);
+      cursor: pointer;
+      position: relative;
+      &:hover {
+        color: var(--color-primary);
+      }
+      &.active {
+        .input-search {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      .icon-search {
+        font-size: rem(20);
+      }
+      .input-search {
+        position: absolute;
+        right: 0;
+        top: rem(82);
+        opacity: 0;
+        visibility: hidden;
+        transition: .15s ease-in-out;
+        width: rem(300);
+        .ant-btn {
+          background-color: #fff !important;
+          box-shadow: none;
+          border: 1px solid #d9d9d9;
+          border-left: 0;
+        }
+      }
+      .btn-icon-search {
+        color: var(--color-primary);
+        font-size: rem(20);
+      }
+    }
+  }
+}
+
+.scroll-sticky {
+  background-color: var(--bg-header-color);
+  transition: 0.5s all;
+  .header-link {
+    color: var(--text-header-color);
+    &:before {
+      background-color: var(--color-primary);
+    }
+  }
+}
+@media screen and (max-width:1024px){
+  .header{
+    padding: 28px 15px !important;
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .header {
+    display: none;
+  }
+}

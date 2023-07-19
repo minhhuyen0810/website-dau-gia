@@ -1,0 +1,31 @@
+.wrap-terms {
+  padding-top: 10px;
+  font-size: 16px;
+  
+  section.terms-detail {
+    padding-top: 16px;
+    .block-content {
+        word-break: break-word;
+    }
+  }
+
+  .container-content {
+    margin: 0 auto;
+    width: 60%;
+  }
+  p {
+    text-align: justify;
+    line-height: 22px;
+  }
+  .sub-ol {
+    list-style-type: lower-alpha;
+  }
+}
+@media screen and (max-width: 576px) {
+  .wrap-terms {
+    .container-content {
+      margin: 0 auto;
+      width: 80%;
+    }
+  }
+}

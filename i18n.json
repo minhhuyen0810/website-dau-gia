@@ -1,0 +1,10 @@
+{
+    "locales": ["vi", "en"],
+    "defaultLocale": "vi",
+    "pages": {
+      "*": ["common"],
+      "/": ["home"],
+      "/aboutUs": ["aboutUs"],
+      "/capcity": ["capcity"]
+    }
+  }

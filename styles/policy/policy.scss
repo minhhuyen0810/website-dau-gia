@@ -1,0 +1,25 @@
+.wrap-policy {
+  padding-top: 10px;
+  font-size: 16px;
+  section.policy-detail {
+    padding-top: 16px;
+    .block-content {
+        word-break: break-word;
+    }
+  }
+  .container-content {
+    margin: 0 auto;
+    width: 50%;
+  }
+  p {
+    text-align: justify;
+  }
+}
+@media screen and (max-width: 576px) {
+  .wrap-policy {
+    .container-content {
+      margin: 0 auto;
+      width: 80%;
+    }
+  }
+}

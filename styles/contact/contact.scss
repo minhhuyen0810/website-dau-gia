@@ -1,0 +1,63 @@
+.contact-page {
+  .section-form {
+    .form-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 45%;
+      }
+    }
+  }
+  .section-contact {
+    background: url(../../public/img/bannerBusiness3.png);
+    background-size: cover;
+    background-blend-mode: luminosity;
+    position: relative;
+    color: #fff;
+    p.contact-info {
+      font-size: 17px;
+    }
+  }
+  .contact-block {
+    .contact-block-title {
+      color: var(--color-primary);
+      text-decoration: underline;
+      margin-bottom: rem(16);
+    }
+    li {
+      line-height: 150%;
+      padding: rem(2) 0;
+      list-style-type: none;
+    }
+    &.hotline {
+      display: flex;
+      align-items: center;
+      .contact-block-title {
+        margin: 0;
+      }
+      p {
+        // margin:  0 0 0 rem(16);
+      }
+    }
+  }
+  .section-map {
+    .map {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contact-page {
+    .form-right {
+      img {
+        padding: 40px !important;
+      }
+    }
+    .contact-info {
+      font-size: 13px !important;
+  }
+  }
+}
