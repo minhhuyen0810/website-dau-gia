@@ -64,9 +64,7 @@ const ProductPage = (props: PropsPageInterface) => {
           <h1 className="title-common">Danh mục tài sản đấu giá</h1>
         </div>
       </section>
-      <section className="section animation-title">
-        <SectionView category={categoryTree} />
-      </section>
+      <section className="section animation-title"></section>
     </div>
   );
 };
