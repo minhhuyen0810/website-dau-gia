@@ -170,9 +170,13 @@ const HomePage = (props: PropsPageInterface) => {
         const post: PostInterface = category.posts[0];
         return (
           post && (
-            <div className="section-why about-me" id={category.id} key={category.id}>
+            <div
+              className="section-why about-me"
+              id={category.id}
+              key={category.id}
+            >
               <PreloadImage
-                src={"/img/bannerProduct.jpg"}
+                src={'/img/bannerProduct.jpg'}
                 altAttribute="whyChooseImage"
                 cssClass="img-banner"
                 layout="fill"
@@ -194,27 +198,6 @@ const HomePage = (props: PropsPageInterface) => {
               </div>
             </div>
           )
-        );
-      case DisplayEnum.ICON_CONTAINER:
-        const listPostIcons: PostInterface[] = category.posts;
-        return (
-          <div className="section-summary" id={category.id} key={category.id}>
-            {listPostIcons &&
-              listPostIcons.map((post) => (
-                <div className="summary-item" key={post.id}>
-                  <div className="top">
-                    <div className="icon">
-                      <img src={post.icon} alt="icon" loading="lazy" />
-                    </div>
-                    <label className="iBold">{post.name}</label>
-                  </div>
-                  <div className="bottom">
-                    <span className="iBold">{post.title}</span>
-                    <span className="unit">{post.content}</span>
-                  </div>
-                </div>
-              ))}
-          </div>
         );
       case DisplayEnum.NAV_HOME_CONTAINER:
         const tabList: PostInterface[] = category.posts;
@@ -343,7 +326,98 @@ const HomePage = (props: PropsPageInterface) => {
         );
     }
   };
-
+  const partners: PartnerInterface[] = [
+    {
+      name: 'Partner 1',
+      image: '/img/clients/client-1.png',
+      description: 'Description for Partner 1',
+      id: 1,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-2.svg',
+      description: 'Description for Partner 2',
+      id: 2,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-3.png',
+      description: 'Description for Partner 2',
+      id: 3,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-4.png',
+      description: 'Description for Partner 2',
+      id: 4,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-5.png',
+      description: 'Description for Partner 2',
+      id: 5,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-6.png',
+      description: 'Description for Partner 2',
+      id: 6,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-7.png',
+      description: 'Description for Partner 2',
+      id: 7,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-8.png',
+      description: 'Description for Partner 2',
+      id: 8,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-9.png',
+      description: 'Description for Partner 2',
+      id: 9,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+    {
+      name: 'Partner 2',
+      image: '/img/clients/client-10.png',
+      description: 'Description for Partner 2',
+      id: 10,
+      isDelete: false,
+      createdAt: '2023-09-28',
+      updatedAt: '2023-09-28',
+    },
+  ];
   return (
     <div className="home-page">
       <section className="section section-banners" id="banners">
@@ -352,35 +426,34 @@ const HomePage = (props: PropsPageInterface) => {
           className="w-100 carousel"
           afterChange={onChange}
         >
-          {homeData.banners &&
-            homeData.banners.map((banner: SliderInterface) => (
-              <div className="wrap-banner" key={banner.imgage}>
-                <PreloadImage
-                  src={banner.imgage}
-                  cssClass="banner"
-                  layout="fill"
-                  priority={true}
-                  isBanner={true}
-                  altAttribute="image"
-                />
-                <div className="content-banner">
-                  <p className="brand">{banner.title}</p>
-                  <h1 className="title-common cl-dark">
-                    <p className="m-0 white-space-pre-wrap">{banner.content}</p>
-                  </h1>
-                </div>
-              </div>
-            ))}
+          <div className="wrap-banner">
+            <PreloadImage
+              src="/img/bn-home.jpg"
+              cssClass="banner"
+              layout="fill"
+              priority={true}
+              isBanner={true}
+              altAttribute="image"
+            />
+            <div className="content-banner">
+              <p className="brand">Đấu giá KMA </p>
+              <h1 className="title-common cl-dark">
+                <p className="m-0 white-space-pre-wrap">
+                  Uy tín, chất lượng, sản phẩm chất lượng cao
+                </p>
+              </h1>
+            </div>
+          </div>
         </Carousel>
       </section>
 
-      {homeData.categories &&
+      {/* {homeData.categories &&
         homeData.categories.map((category: CategoryInterface) => (
           <section className="section animation-title" key={category.id}>
             {renderSection(category)}
           </section>
-        ))}
-      <SectionView
+        ))} */}
+      {/* <SectionView
         postHighlights={homeData.postHighlights}
         category={
           {
@@ -388,17 +461,11 @@ const HomePage = (props: PropsPageInterface) => {
             type: DisplayEnum.POST_HIGHLIGHT_CONTAINER,
           } as CategoryInterface
         }
-      />
+      /> */}
       <section className="section section-partner">
         <div className="section-dark section-pad">
           <Title title={t('PARTNER')} cssClass="title-common underline" />
-          <SlidePartners partners={homeData.partners} theme={'dark'} />
-        </div>
-      </section>
-      <section className="section">
-        <div className="section-pad">
-          <Title title={t('CERTIFICATE')} cssClass="title-common underline" />
-          <SlidePartners partners={homeData.certificates} />
+          <SlidePartners partners={partners} theme={'dark'} />
         </div>
       </section>
     </div>

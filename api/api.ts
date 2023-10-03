@@ -92,12 +92,6 @@ const getService = async <T>(
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
-
-    // if (isAuthorization) {
-    //   headers.Authorization = `Bearer ${localStorage.getItem(
-    //     KeyConfigLocal.TOKEN
-    //   )}`;
-    // }
     const requestInit: any = { method: 'GET', headers };
     if (body) requestInit.body = JSON.stringify(body);
     let queryString = '';

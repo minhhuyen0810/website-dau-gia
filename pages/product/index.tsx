@@ -8,6 +8,7 @@ import commonService from '../../services/common.service';
 import { useAppSelector } from '../../store/hook';
 import { getPageCategoriesAction } from '../../store/slices/product.slice';
 import { PropsPageInterface } from '../../types/page.interface';
+import PreloadImage from '../../layout/components/PreloadImage';
 
 const ProductPage = (props: PropsPageInterface) => {
   const dispatch = useDispatch();
@@ -21,39 +22,49 @@ const ProductPage = (props: PropsPageInterface) => {
     null
   );
   //EFFECT
-  useEffect(() => {
-    if (productState.categoryTree) {
-      setCategoryTree(productState.categoryTree);
-    }
-  }, [productState.categoryTree]);
+  // useEffect(() => {
+  //   if (productState.categoryTree) {
+  //     setCategoryTree(productState.categoryTree);
+  //   }
+  // }, [productState.categoryTree]);
 
-  useEffect(() => {
-    let currentCategory: CategoryInterface | null = null;
-    if (
-      commonState.headerCategories &&
-      commonState.headerCategories.length > 0
-    ) {
-      currentCategory = commonService.getCurrentCategory(
-        router.pathname,
-        commonState.headerCategories
-      );
-    }
-    const categoryId = id ? id : currentCategory?.id;
-    if (categoryId) {
-      dispatch(getPageCategoriesAction(categoryId as string) as any);
-    }
-    setCurrentCategory(currentCategory);
-  }, [commonState.headerCategories, id]);
+  // useEffect(() => {
+  //   let currentCategory: CategoryInterface | null = null;
+  //   if (
+  //     commonState.headerCategories &&
+  //     commonState.headerCategories.length > 0
+  //   ) {
+  //     currentCategory = commonService.getCurrentCategory(
+  //       router.pathname,
+  //       commonState.headerCategories
+  //     );
+  //   }
+  //   const categoryId = id ? id : currentCategory?.id;
+  //   if (categoryId) {
+  //     dispatch(getPageCategoriesAction(categoryId as string) as any);
+  //   }
+  //   setCurrentCategory(currentCategory);
+  // }, [commonState.headerCategories, id]);
 
   // FUNCTION
 
   // RENDER
   return (
     <div className="product-page">
-      <SectionView category={currentCategory} />
-      <section className="section animation-title">
-        <SectionView category={categoryTree} />
+      {/* <SectionView category={currentCategory} /> */}
+      <section className="section section-banners">
+        <PreloadImage
+          src="/img/bannerdanhmuctaisan.png"
+          altAttribute="banner"
+          cssClass="image-banner"
+          layout="fill"
+          priority
+        />
+        <div className="content-banner">
+          <h1 className="title-common">Danh mục tài sản đấu giá</h1>
+        </div>
       </section>
+      <section className="section animation-title"></section>
     </div>
   );
 };

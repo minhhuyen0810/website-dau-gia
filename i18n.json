@@ -1,10 +1,10 @@
 {
-    "locales": ["vi", "en"],
-    "defaultLocale": "vi",
-    "pages": {
-      "*": ["common"],
-      "/": ["home"],
-      "/aboutUs": ["aboutUs"],
-      "/capcity": ["capcity"]
-    }
+  "locales": ["vi"],
+  "defaultLocale": "vi",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"],
+    "/aboutUs": ["aboutUs"],
+    "/capcity": ["capcity"]
   }
+}
