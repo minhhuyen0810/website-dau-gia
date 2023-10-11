@@ -1,0 +1,19 @@
+export interface ProductInterface {
+  id: number | undefined;
+  code: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  imageUrl: string | undefined;
+  minPrice: number | undefined;
+  registrationFee: number | undefined;
+  deposit: number | undefined;
+  stepFee: number | undefined;
+  statusAsText: string | undefined;
+  typeAsText: string | undefined;
+  auctionStatusAsText: string | undefined;
+  resultStatusAsText: string | undefined;
+  registrationStartTime: number | undefined;
+  registrationEndTime: number | undefined;
+  activeTime: number | undefined;
+  expireTime: number | undefined;
+}

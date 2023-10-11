@@ -11,7 +11,7 @@ export interface AuthState {
   errorMessage?: string;
 }
 export interface LoginForm {
-  email: string;
+  username: string;
   password: string;
 }
 

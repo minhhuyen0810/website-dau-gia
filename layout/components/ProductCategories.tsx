@@ -17,11 +17,11 @@ const ProductCategories = (props: IProductCategoriesProps) => {
   const router = useRouter();
   const [category, setCategory] = useState<CategoryInterface>();
 
-  useEffect(() => {
-    if (props.category) {
-      setCategory(props.category);
-    }
-  }, [props.category]);
+  // useEffect(() => {
+  //   if (props.category) {
+  //     setCategory(props.category);
+  //   }
+  // }, [props.category]);
 
   // FUNCTION
   const goToDetail = (categorySelected: CategoryInterface) => {

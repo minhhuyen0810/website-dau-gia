@@ -17,9 +17,7 @@ import LoginModal from './components/LoginModal';
 
 const { Search } = Input;
 
-const SideBar: FC<{ categories: CategoryInterface[] | null }> = ({
-  categories,
-}) => {
+const SideBar: FC<{}> = ({}) => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [activeSearch, setActiveSearch] = useState(false);
@@ -28,17 +26,6 @@ const SideBar: FC<{ categories: CategoryInterface[] | null }> = ({
     setShowSidebar(!showSidebar);
   };
   const router = useRouter();
-
-  const toggleSearch = (e: any) => {
-    e.stopPropagation();
-    setActiveSearch(!activeSearch);
-  };
-
-  const toggleMenuItem = (index: number) => {
-    setActiveMenu(index === activeMenu ? -1 : index);
-  };
-
-  const onSearch = (value: string) => console.log(value);
 
   // RENDER
   const Title = (

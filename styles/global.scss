@@ -7,11 +7,9 @@
 @import './footer.scss';
 @import './home/home.scss';
 @import './product/product.scss';
-@import './news/news.scss';
-@import './policy/policy.scss';
-@import './terms/terms.scss';
-@import './checksn/checksn.scss';
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 html {
   font-size: 14px;
 }
@@ -25,7 +23,9 @@ body {
   font-family: 'PF-BeauSans-Pro', sans-serif;
   scroll-behavior: smooth;
 }
-
+.ant-btn-primary {
+  background-color: #1677ff !important;
+}
 .flex {
   display: flex;
 }
@@ -115,6 +115,9 @@ h5 {
 .text-center {
   text-align: center;
 }
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -123,7 +126,9 @@ a {
 * {
   box-sizing: border-box;
 }
-
+button {
+  background-color: unset transparent !important;
+}
 input,
 button {
   &:focus {
@@ -224,7 +229,7 @@ button {
 }
 
 // container
-.container {
+.padding-120 {
   padding: 0 120px;
 }
 

@@ -1,93 +1,57 @@
 import { IResponse } from './../../api/configs';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api from '../../api/api';
-import categoryService from '../../services/category.service';
-import postService from '../../services/post.service';
-import { StatusLoading } from '../types/statusLoading.interface';
-import { BannerInterface } from './../../model/banner';
-import { CategoryInterface } from './../../model/category';
-import { PostInterface } from './../../model/post';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import productService from '../../services/product.service';
+import { trimParam } from '../../util';
 
-export interface ProductState {
-  banner: BannerInterface | null;
-  categoryTree: CategoryInterface | null;
-  categorySelected: CategoryInterface | null;
-  subCategories: CategoryInterface[] | null;
-  status: string;
-  errorMessage: string | null;
-}
+// Định nghĩa kiểu dữ liệu cho initialState
 
-const initialState: ProductState = {
-  banner: null,
-  categoryTree: null,
-  categorySelected: null,
-  subCategories: null,
-  status: StatusLoading.IDLE,
-  errorMessage: null,
+const initialState: any = {
+  data: [],
+  dataDetail: null,
+  totalField: 0,
 };
 
-export const getSubCategoriesAction = createAsyncThunk(
-  'product/getSubCategories',
-  async (id: string, { dispatch, rejectWithValue }) => {
+
+export const getListProductAction = createAsyncThunk(
+  "product/getListProduct",
+  async (filter: any, thunkAPI) => {
+    try {   
+      const response: any = await productService.getAllProducts({ ...filter })
+      thunkAPI.dispatch(setListProductAction(response));
+    } catch (error) {
+      console.log('err', error);
+    }
+  }
+);
+export const getDetailProductAction = createAsyncThunk(
+  "SearchDetailProduct",
+  async (id: any, thunkAPI) => {
     try {
-      const response = await categoryService.getPageCategories(id);
-      const responsePosts = await postService.getPagePosts(id);
-      let categories = response.data;
-      const posts = responsePosts.data;
-      if (categories && categories.length > 0) {
-        categories = categories.map((category: CategoryInterface) => {
-          const postFounds = (posts || []).filter(
-            (post: PostInterface) => post.category === category.id
-          );
-          return {
-            ...category,
-            posts: postFounds || [],
-          };
-        });
-      }
-      return categories;
-    } catch (e) {
-      console.log('err', e);
-      return rejectWithValue(e);
+      const response: any = await productService.getProductDetailbyId(id);
+      thunkAPI.dispatch(setDetailProductAction(response));
+    } catch (error) {
+       console.log('err', error);
     }
   }
 );
 
-export const getPageCategoriesAction = createAsyncThunk(
-  'product/getCategories',
-  async (id: string, { dispatch, rejectWithValue }) => {
-    try {
-      const params = { id };
-      const response = await categoryService.getCategoriesTree(id, params);
-      return response.data[0];
-    } catch (e) {
-      console.log('err', e);
-      return rejectWithValue(e);
-    }
-  }
-);
 
 export const productSlice = createSlice({
-  name: 'product',
+  name: "product",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getPageCategoriesAction.pending, (state) => {})
-      .addCase(getPageCategoriesAction.fulfilled, (state, action) => {
-        state.categoryTree = action.payload;
-      })
-      .addCase(getPageCategoriesAction.rejected, (state, action) => {
-        state.errorMessage = action.payload as string;
-      })
-      .addCase(getSubCategoriesAction.pending, (state) => {})
-      .addCase(getSubCategoriesAction.fulfilled, (state, action) => {
-        state.subCategories = action.payload;
-      })
-      .addCase(getSubCategoriesAction.rejected, (state, action) => {
-        state.errorMessage = action.payload as string;
-      });
+  reducers: {
+    setListProductAction: (state: any, action: PayloadAction<any>) => {
+      state.data = action.payload.data;
+    },
+    setDetailProductAction: (state: any, action: PayloadAction<any>) => {
+      state.dataDetail = action.payload.data;
+      state.totalField = Object.keys(action.payload).length;
+    },
   },
 });
+export const { 
+  setListProductAction, 
+  setDetailProductAction 
+} = productSlice.actions;
 
 export default productSlice.reducer;

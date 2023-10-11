@@ -26,15 +26,13 @@ export interface ILanguage {
 
 interface IHeader {
   isScroll: boolean;
-  categories: CategoryInterface[] | null;
 }
 
-const Header: FC<IHeader> = ({ isScroll, categories }) => {
+const Header: FC<IHeader> = ({ isScroll }) => {
   const router = useRouter();
-  const { t } = useTranslation('common');
 
   return (
-    <div className={`header container ${isScroll && 'scroll-sticky'}`}>
+    <div className={`header padding-120 ${isScroll && 'scroll-sticky'}`}>
       <a className="logo" href={URL_ROOT}>
         <Image
           src="/img/logo-dau-gia-lac-viet.png"
@@ -58,23 +56,6 @@ const Header: FC<IHeader> = ({ isScroll, categories }) => {
               }`}
             >
               Tài sản đấu giá
-            </a>
-          </Link>
-        </div>
-        <div className="menu-item">
-          <Link
-            href={{
-              pathname: URL_AUCTION,
-            }}
-            as={URL_AUCTION}
-            shallow={true}
-          >
-            <a
-              className={`header-link ${
-                router.pathname === URL_AUCTION ? 'active' : ''
-              }`}
-            >
-              Cuộc đấu giá
             </a>
           </Link>
         </div>

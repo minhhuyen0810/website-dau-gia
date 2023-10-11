@@ -53,13 +53,13 @@ export const capacitySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getPageCategoriesAction.pending, (state) => {})
-      .addCase(getPageCategoriesAction.fulfilled, (state, action) => {
-        state.categories = action.payload;
-      })
-      .addCase(getPageCategoriesAction.rejected, (state, action) => {
-        state.errorMessage = action.payload as string;
-      });
+      // .addCase(getPageCategoriesAction.pending, (state) => {})
+      // .addCase(getPageCategoriesAction.fulfilled, (state, action) => {
+      //   state.categories = action.payload;
+      // })
+      // .addCase(getPageCategoriesAction.rejected, (state, action) => {
+      //   state.errorMessage = action.payload as string;
+      // });
   },
 });
 

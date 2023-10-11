@@ -96,11 +96,11 @@ const getService = async <T>(
     if (body) requestInit.body = JSON.stringify(body);
     let queryString = '';
     const paramsData: string[] = [];
-    let language = await localStorage.getItem(KeyConfigLocal.LANGUAGE);
-    if (!language) {
-      language = 'vi';
-    }
-    params = { ...params, language };
+    // let language = await localStorage.getItem(KeyConfigLocal.LANGUAGE);
+    // if (!language) {
+    //   language = 'vi';
+    // }
+    // params = { ...params, language };
     if (params && !isEmpty(params)) {
       Object.keys(params).forEach((key) => {
         if (
