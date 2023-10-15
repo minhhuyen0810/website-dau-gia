@@ -19,6 +19,8 @@ import animationService from '../services/animation.service';
 import { useAppSelector } from '../store/hook';
 import { DisplayEnum } from '../types/display.interface';
 import { PropsPageInterface } from '../types/page.interface';
+import { useEffectOnce } from 'react-use';
+import { debug } from 'console';
 
 const HomePage = (props: PropsPageInterface) => {
   const { t } = useTranslation('common');
@@ -64,7 +66,9 @@ const HomePage = (props: PropsPageInterface) => {
   });
   const [employee, setEmployee] = useState<number>(900);
   const [country, setCountry] = useState<number>(0);
-
+  // useEffectOnce(() => {
+  //   var token = localStorage.getItem('token');
+  // });
   // EFFECT
   useEffect(() => {
     // initialize();

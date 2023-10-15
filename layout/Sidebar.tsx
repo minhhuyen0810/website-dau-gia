@@ -13,7 +13,6 @@ import { ILanguage } from './Header';
 import { URL_AUCTION, URL_PRODUCT, URL_ROOT } from './types/url.inteface';
 import setLanguage from 'next-translate/setLanguage';
 import { KeyConfigLocal } from '../api/configs';
-import LoginModal from './components/LoginModal';
 
 const { Search } = Input;
 
@@ -54,7 +53,6 @@ const SideBar: FC<{}> = ({}) => {
         </a>
       </div>
       <div className="sidebar-right">
-        <LoginModal />
         <button
           id="nav-icon"
           aria-label="Button nav"

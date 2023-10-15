@@ -1,22 +1,17 @@
 import { toast } from 'react-toastify';
-import withAppProvider from '../../layout/wrapper/withAppProvider';
 import { Form, Input, Button, Row, Col } from 'antd';
-import userService from '../../services/user.service';
 import { useDispatch } from 'react-redux';
-import { registerAction } from '../../store/slices/user.slice';
-import { useState } from 'react';
 import api from '../../api/api';
 
-const RegisterPage = () => {
+export const RegisterPage = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
     try {
       const body = { ...values, activationKey: '', resetDate: '' };
       console.log('Received values:', body);
-      // await api.postServiceRegister(body, false, false);
+      await api.postServiceRegister(body, false, false);
       debugger;
-      await userService.register(body);
       toast.success('Đăng ký thành công');
       form.resetFields();
     } catch (err) {
@@ -144,5 +139,3 @@ const RegisterPage = () => {
     </div>
   );
 };
-
-export default withAppProvider(RegisterPage);

@@ -4,11 +4,11 @@ import capacityReducer from './slices/capacity.slice';
 import contactReducer from './slices/contact.slice';
 import commonReducer from './slices/common.slice';
 import homeReducer from './slices/home.slice';
-
 import newsPageReducer from './slices/news.slice';
 import postDetailReducer from './slices/postDetail.slice';
 import productReducer from './slices/product.slice';
 import productDetailReducer from './slices/productDetail.slice';
+import userReducer from './slices/user.slice';
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -20,6 +20,7 @@ export const store = configureStore({
     postDetail: postDetailReducer,
     product: productReducer,
     productDetail: productDetailReducer,
+    user: userReducer,
   },
 });
 

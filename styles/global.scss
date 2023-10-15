@@ -7,6 +7,8 @@
 @import './footer.scss';
 @import './home/home.scss';
 @import './product/product.scss';
+@import './auction/auction.scss';
+@import './login/login.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,6 +24,17 @@ body {
   margin: 0;
   font-family: 'PF-BeauSans-Pro', sans-serif;
   scroll-behavior: smooth;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #0077b5;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 }
 .ant-btn-primary {
   background-color: #1677ff !important;

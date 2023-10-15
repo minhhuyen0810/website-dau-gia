@@ -17,14 +17,6 @@ const ProductPage = (props: PropsPageInterface) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [state, setState] = useState<any>();
-  const [stateDetail, setStateDetail] = useState<any>({
-    content: null,
-  });
-  const [dataDetailState, dataDetailStateFn] = useAsyncFn(
-    async (params: any) => {
-      return dispatch(getDetailProductAction(params) as any);
-    }
-  );
   const dataReducer = useAppSelector((state) => state.product);
   const router = useRouter();
   const { id } = router.query;

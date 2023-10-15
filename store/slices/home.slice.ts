@@ -18,7 +18,7 @@ export interface HomeState {
   isLoadingBanner: boolean | null;
 }
 export interface LoginForm {
-  email: string;
+  username: string;
   password: string;
 }
 

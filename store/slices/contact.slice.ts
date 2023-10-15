@@ -8,10 +8,7 @@ export interface ContactState {
   status: string;
   errorMessage: string | null;
 }
-export interface LoginForm {
-  email: string;
-  password: string;
-}
+
 
 const initialState: ContactState = {
   data: null,

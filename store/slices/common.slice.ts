@@ -10,10 +10,7 @@ export interface CommonState {
   partners: PartnerInterface[] | null;
   errorMessage: string | null;
 }
-export interface LoginForm {
-  email: string;
-  password: string;
-}
+
 
 const initialState: CommonState = {
   headerCategories: null,

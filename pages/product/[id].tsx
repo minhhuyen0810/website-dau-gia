@@ -68,7 +68,7 @@ const DetailProductPage = () => {
               />
             </div>
             <div className=" ml-28 left w-1/2">
-              {productDetailData?.auctionStatus === 'Happening' ? (
+              {productDetailData?.auctionStatus === 'HAPPENING' ? (
                 <div>
                   <p className="text-lg mb-10">Cuộc đấu giá đang diễn ra</p>
                   <Button className="w-full mb-10" size="large">
@@ -80,6 +80,13 @@ const DetailProductPage = () => {
                   <p className="text-lg mb-10">Cuộc đấu giá sắp diễn ra</p>
                   <Button className="w-full mb-10" size="large">
                     Đăng ký đấu giá
+                  </Button>
+                </div>
+              ) : productDetailData?.auctionStatus === 'FINISHED' ? (
+                <div>
+                  <p className="text-lg mb-10">Cuộc đấu giá sắp diễn ra</p>
+                  <Button className="w-full mb-10" size="large">
+                    Xem lịch sử đấu giá tại đây
                   </Button>
                 </div>
               ) : null}

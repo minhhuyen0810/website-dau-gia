@@ -2,42 +2,59 @@ import { KeyConfigLocal } from './../../api/configs';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import authService from '../../services/auth.service';
 import { StatusLoading } from '../types/statusLoading.interface';
+import api from '../../api/api';
+import { Router, useRouter } from 'next/router';
+import { getToken } from '../../util';
 
 export interface AuthState {
   account: any;
-  isSignIn: boolean;
   status: string;
-  accessToken: string | null;
+  id_token: string | null;
   errorMessage?: string;
 }
 export interface LoginForm {
   username: string;
   password: string;
+  remmberMe: boolean;
 }
 
 const initialState: AuthState = {
-  account: {},
-  isSignIn: false,
-  accessToken: null,
+  account: null,
+  id_token:getToken() ,
   status: StatusLoading.IDLE,
 };
 
-export const loginAsyncAction = createAsyncThunk(
+export const loginAction = createAsyncThunk(
   'auth/login',
-  async (loginForm: LoginForm, { rejectWithValue }) => {
+  async (loginForm: any, {dispatch, rejectWithValue }) => {
     try {
-      const response = await authService.login(loginForm);
-      return response;
+      const response: any = await authService.login(loginForm);
+      var token = response?.id_token;
+      return token;
     } catch (e) {
       console.log('err', e);
       return rejectWithValue(e);
     }
   }
 );
+export const getUserInfoAction = createAsyncThunk(
+  'user/getInfo',
+  async (thunkAPI) => {
+    try {
+      const response : any = await api.getService("api/user", null, null, true);
+      // console.log(response)
+      return response;
+    } catch (error) {
+      console.log(error);
+      // return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-export const logoutAsync = createAsyncThunk(
+
+export const logOutAction = createAsyncThunk(
   'auth/logout',
-  async (args: any, { dispatch, rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       const response = await authService.logout();
       return response;
@@ -54,37 +71,36 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginAsyncAction.pending, (state) => {
+      .addCase(loginAction.pending, (state) => {
         state.status = StatusLoading.LOADING;
       })
-      .addCase(loginAsyncAction.fulfilled, (state, action) => {
+      .addCase(loginAction.fulfilled, (state, action) => {
         state.status = StatusLoading.IDLE;
-        state.isSignIn = true;
-        state.account = action.payload.user;
+        state.id_token = action.payload;
         localStorage.setItem(
           KeyConfigLocal.TOKEN,
-          action.payload.access_token as string
-        );
-        localStorage.setItem(
-          KeyConfigLocal.USER,
-          JSON.stringify(action.payload.user)
+          action.payload as string
         );
       })
-      .addCase(loginAsyncAction.rejected, (state, action) => {
+      .addCase(loginAction.rejected, (state, action) => {
         console.log('reject');
         state.status = StatusLoading.FAILED;
         state.errorMessage = action.payload as string;
       })
-      .addCase(logoutAsync.pending, (state) => {
+      .addCase(getUserInfoAction.fulfilled, (state, action) => {
+        state.account = action.payload?.data;
+      })
+      .addCase(logOutAction.pending, (state) => {
         state.status = StatusLoading.LOADING;
       })
-      .addCase(logoutAsync.fulfilled, (state, action) => {
+      .addCase(logOutAction.fulfilled, (state, action) => {
         console.log('fullfilled');
         state.status = StatusLoading.IDLE;
-        state.isSignIn = false;
         state.account = null;
+        state.id_token = null;
+        localStorage.removeItem(KeyConfigLocal.TOKEN);
       })
-      .addCase(logoutAsync.rejected, (state, action) => {
+      .addCase(logOutAction.rejected, (state, action) => {
         console.log('reject');
         state.status = StatusLoading.FAILED;
         state.errorMessage = action.payload as string;
