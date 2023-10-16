@@ -31,10 +31,10 @@ const DetailAuctionProductPage = () => {
   useEffect(() => {
     if (authReducer.id_token) {
       const token = authReducer.id_token;
-      debugger;
+      // debugger;
       const topic = `topic/auction/${productId}`;
-      socket.emit('subscribeToAuction', { topic, token });
-      socket.on('connect', () => {
+      socket.emit('subscribeToAuction', { topic });
+      socket.on(topic, () => {
         console.log('Kết nối thành công');
       });
       socket.on('error', (error) => {
@@ -46,12 +46,33 @@ const DetailAuctionProductPage = () => {
       };
     }
   }, []);
+  //Function
+  function formatCurrency(number: any) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    });
+
+    return formatter.format(number);
+  }
   return (
     <div className="detailAuction-page detail-page">
       <section className="section">
-        <div className="section-pad ">
-          <div className="left info-detailproduct">Đang test</div>
-          <div className="right info-detailauction"></div>
+        <div className="section-pad flex ">
+          <div className=" left info-detailProductwrap-img w-1/2">
+            <img
+              className="w-full"
+              src={productDetailData?.imageUrl}
+              alt="product-img"
+            />
+            <h2 className=" flex items-center justify-center text-primary pt-4 ">
+              Giá khởi điểm: {formatCurrency(productDetailData?.minPrice)}
+            </h2>
+          </div>
+
+          <div className=" right p-12 info-detailAuctionHistory wrap-info grid grid-cols-2  border-2 ml-20">
+            Chi tiết lịch sử đấu giá
+          </div>
         </div>
       </section>
     </div>

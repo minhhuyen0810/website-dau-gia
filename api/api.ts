@@ -21,16 +21,7 @@ const _responseConfig = async (response: Response) => {
     // localStorage.clear();
     // window.location.href = "/login";
     // const responseLogin: IResponseLogin = await authService.login({});
-    localStorage.setItem(
-      KeyConfigLocal.TOKEN,
-      // responseLogin.access_token as string
-      getToken() as string
-    );
-    // localStorage.setItem(
-    //   KeyConfigLocal.USER,
-    //   JSON.stringify(responseLogin.user)
-    // );
-    toast.warn('Tải lại trang để cập nhật dữ liệu');
+    localStorage.clear();
     return response.json();
   }
 
@@ -52,7 +43,23 @@ const _responseConfig = async (response: Response) => {
   //   throw Error(result.error_description);
   // }
 };
+const postServiceRegister = async <T>(url: string): Promise<T> => {
+  try {
+    const headers: any = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    };
+    const requestInit: any = { method: 'POST', headers };
 
+    const response = await fetch(`${Config.URL_API}${url}`, requestInit);
+
+    return await _responseConfig(response);
+  } catch (error: any) {
+    console.log(error);
+    throw error;
+  }
+};
 const postService = async <T>(
   url: string,
   body: object,
@@ -123,4 +130,4 @@ const getService = async <T>(
   }
 };
 
-export default { postService, getService };
+export default { postService, getService, postServiceRegister };

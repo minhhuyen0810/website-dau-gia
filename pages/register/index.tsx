@@ -3,7 +3,6 @@ import withAppProvider from '../../layout/wrapper/withAppProvider';
 import { Form, Input, Button, Row, Col } from 'antd';
 import userService from '../../services/user.service';
 import { useDispatch } from 'react-redux';
-import { registerAction } from '../../store/slices/user.slice';
 import { useState } from 'react';
 import api from '../../api/api';
 

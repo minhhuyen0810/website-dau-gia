@@ -11,6 +11,8 @@ import { useAppSelector } from '../../store/hook';
 import { getCategoryAction } from '../../store/slices/productDetail.slice';
 import { DisplayEnum } from '../../types/display.interface';
 import { getDetailProductAction } from '../../store/slices/product.slice';
+import auctionService from '../../services/auction.service';
+import { toast } from 'react-toastify';
 
 const DetailProductPage = () => {
   const { t } = useTranslation('common');
@@ -18,6 +20,7 @@ const DetailProductPage = () => {
   const { id } = router.query;
   const dispatch = useDispatch();
   const productReducer = useAppSelector((state) => state.product);
+  const authReducer = useAppSelector((state) => state.auth);
   const [productDetailData, setProductDetailData] = useState<any>();
 
   // EFFECT
@@ -29,6 +32,7 @@ const DetailProductPage = () => {
 
   useEffect(() => {
     setProductDetailData(productReducer.dataDetail);
+    console.log(productDetailData);
   }, [productReducer.dataDetail]);
 
   // FUNCTION
@@ -52,6 +56,27 @@ const DetailProductPage = () => {
 
     return formatter.format(number);
   }
+
+  const _handleRegisterAuction = async (id: any) => {
+    if (authReducer.id_token) {
+      try {
+        console.log('id_token: ', authReducer.id_token);
+        await auctionService.registerAuction(id);
+        toast.success('Đăng ký thành công');
+      } catch (err) {
+        toast.error('Bị lỗi: ' + err + ' Vui lòng liên hệ quản trị viên');
+      }
+    } else {
+      toast.info('Chưa đăng nhập, vui lòng đăng nhập!');
+    }
+  };
+  const _handlegotoDetailAuction = (id: any) => {
+    if (authReducer.id_token) {
+      router.push(`auction/product/${id}`);
+    } else {
+      toast.info('Chưa đăng nhập, vui lòng đăng nhập!');
+    }
+  };
   // RENDER
 
   return (
@@ -71,25 +96,34 @@ const DetailProductPage = () => {
               {productDetailData?.auctionStatus === 'HAPPENING' ? (
                 <div>
                   <p className="text-lg mb-10">Cuộc đấu giá đang diễn ra</p>
-                  <Button className="w-full mb-10" size="large">
-                    Xem cuộc đấu giá
+                  <Button
+                    onClick={() => _handlegotoDetailAuction(id)}
+                    className="w-full mb-10"
+                    size="large"
+                  >
+                    Vào cuộc đấu giá
                   </Button>
                 </div>
               ) : productDetailData?.auctionStatus === 'UP_COMING' ? (
                 <div>
                   <p className="text-lg mb-10">Cuộc đấu giá sắp diễn ra</p>
-                  <Button className="w-full mb-10" size="large">
+                  <Button
+                    onClick={() => _handleRegisterAuction(id)}
+                    className="w-full mb-10"
+                    size="large"
+                  >
                     Đăng ký đấu giá
                   </Button>
                 </div>
-              ) : productDetailData?.auctionStatus === 'FINISHED' ? (
-                <div>
-                  <p className="text-lg mb-10">Cuộc đấu giá sắp diễn ra</p>
-                  <Button className="w-full mb-10" size="large">
-                    Xem lịch sử đấu giá tại đây
-                  </Button>
-                </div>
-              ) : null}
+              ) : // : productDetailData?.auctionStatus === 'FINISHED' ? (
+              //   <div>
+              //     <p className="text-lg mb-10">Cuộc đấu giá sắp diễn ra</p>
+              //     <Button className="w-full mb-10" size="large">
+              //       Xem lịch sử đấu giá tại đây
+              //     </Button>
+              //   </div>
+              // )
+              null}
 
               <div className=" p-12  wrap-info grid grid-cols-2  border-2">
                 <div>Mã tài sản:</div>
