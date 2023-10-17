@@ -32,14 +32,14 @@ const DetailAuctionProductPage = () => {
     if (authReducer.id_token) {
       const token = authReducer.id_token;
       // debugger;
-      const topic = `topic/auction/${productId}`;
-      socket.emit('subscribeToAuction', { topic });
+      const topic = `auction/${productId}`;
+      // socket.emit('subscribeToAuction', { topic });
       socket.on(topic, () => {
         console.log('Kết nối thành công');
       });
-      socket.on('error', (error) => {
-        console.error(`Socket error: ${error}`);
-      });
+      // socket.on('error', (error) => {
+      //   console.error(`Socket error: ${error}`);
+      // });
       return () => {
         // Ngắt kết nối khi component bị hủy
         socket.emit('unsubscribeFromAuction', topic);
