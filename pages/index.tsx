@@ -74,25 +74,6 @@ const HomePage = (props: PropsPageInterface) => {
     // initialize();
     animationService.scrollTrigger('#banners');
   }, []);
-  // useEffect(() => {
-  //   if (homeState) {
-  //     setHomeData({
-  //       ...homeData,
-  //       banners: homeState.banners?.sliders ? homeState.banners?.sliders : [],
-  //       categories: homeState.categories,
-  //       postSelected: homeState.businessPostSelected,
-  //       postHighlights: homeState.postHighlights,
-  //       partners: commonState.partners,
-  //       certificates: commonState.certificates,
-  //       isLoadingBanner: homeState.isLoadingBanner,
-  //     });
-  //   }
-  // }, [homeState]);
-
-  // useEffect(() => {
-  //   dispatch(getHomeCategoriesAction() as any);
-  //   dispatch(getPostHighlightsAction() as any);
-  // }, []);
 
   useEffect(() => {
     if (window) {

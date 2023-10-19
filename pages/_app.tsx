@@ -10,19 +10,18 @@ import setLanguage from 'next-translate/setLanguage';
 import { useEffect } from 'react';
 import { IResponseLogin, KeyConfigLocal } from '../api/configs';
 import authService from '../services/auth.service';
-import { checkTokenExpiration } from '../middleware/jwtmiddleware';
 
 function App({ Component, pageProps }: AppProps) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Kiểm tra token hết hạn mỗi 5 phút (300,000 milliseconds)
-    const tokenCheckInterval = setInterval(() => {
-      dispatch(checkTokenExpiration());
-    }, 300000);
+  // useEffect(() => {
+  //   // Kiểm tra token hết hạn mỗi 5 phút (300,000 milliseconds)
+  //   const tokenCheckInterval = setInterval(() => {
+  //     dispatch(checkTokenExpiration());
+  //   }, 300000);
 
-    return () => clearInterval(tokenCheckInterval);
-  }, []);
+  //   return () => clearInterval(tokenCheckInterval);
+  // }, []);
   return (
     <Provider store={store}>
       <LayoutProvider>
