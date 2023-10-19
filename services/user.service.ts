@@ -11,16 +11,16 @@ const register = async (param: any) => {
   );
   return response;
 };
+const forgotPassword = async (param: any) => {
+  const response = await api.postService(
+    'api/customer/user/forget-password',
+    {
+      ...param,
+    },
+    false,
+    false
+  );
+  return response;
+};
 
-// const register = async (param: any) => {
-//   const response = await api.postService(
-//     'api​/customer',
-//     {
-//       ...param,
-//     },
-//     false,
-//     false
-//   );
-//   return response;
-// };
-export default { register };
+export default { register, forgotPassword };

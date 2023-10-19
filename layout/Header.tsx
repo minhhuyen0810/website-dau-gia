@@ -1,4 +1,9 @@
-import { LoginOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  LockOutlined,
+  LoginOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Button, Dropdown, Input, Menu } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,14 +30,36 @@ const Header: FC<IHeader> = ({ isScroll }) => {
   const _logout = () => {
     dispatch(logOutAction() as any);
   };
+  const _changePassword = () => {
+    // dispatch(logOutAction() as any);
+    console.log('change password');
+  };
+  const _goToUserInfo = () => {
+    // dispatch(logOutAction() as any);
+    console.log('thông tin tài khoản:', accountData);
+  };
   const menu = (
     <Menu>
       <Menu.Item
-        key="3"
+        key="1"
         icon={<LoginOutlined style={{ color: 'red' }} rev={undefined} />}
         onClick={_logout}
       >
         <span className="text-red-600">Đăng Xuất</span>
+      </Menu.Item>
+      <Menu.Item
+        key="2"
+        icon={<LockOutlined style={{ color: 'blue' }} rev={undefined} />}
+        onClick={_logout}
+      >
+        <span className="text-blue-600">Đổi mật khẩu</span>
+      </Menu.Item>
+      <Menu.Item
+        key="3"
+        icon={<UserOutlined style={{ color: 'green' }} rev={undefined} />}
+        onClick={_goToUserInfo}
+      >
+        <span className="text-green-600">Thông tin cá nhân</span>
       </Menu.Item>
     </Menu>
   );

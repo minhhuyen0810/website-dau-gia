@@ -96,6 +96,9 @@
       width: 120px;
     }
   }
+  .forget-password:hover {
+    color: #3c97bf;
+  }
   .container {
     background-color: #ffffff;
     border-radius: 10px;
@@ -112,6 +115,11 @@
     top: 0;
     height: 110%;
     transition: all 0.6s ease-in-out;
+  }
+  .forgot-password-container {
+    left: 0;
+    width: 100%;
+    z-index: 2;
   }
 
   .sign-in-container {

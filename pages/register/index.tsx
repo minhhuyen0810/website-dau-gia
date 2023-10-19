@@ -13,8 +13,6 @@ const RegisterPage = () => {
     try {
       const body = { ...values, activationKey: '', resetDate: '' };
       console.log('Received values:', body);
-      // await api.postServiceRegister(body, false, false);
-      debugger;
       await userService.register(body);
       toast.success('Đăng ký thành công');
       form.resetFields();

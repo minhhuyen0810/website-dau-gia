@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../store/hook';
 import useTranslation from 'next-translate/useTranslation';
 import { getDetailProductAction } from '../../../store/slices/product.slice';
 import { io } from 'socket.io-client';
+import { Button } from 'antd';
 
 const socket = io('http://103.82.24.232:8181/');
 const DetailAuctionProductPage = () => {
@@ -71,7 +72,9 @@ const DetailAuctionProductPage = () => {
           </div>
 
           <div className=" right p-12 info-detailAuctionHistory wrap-info grid grid-cols-2  border-2 ml-20">
-            Chi tiết lịch sử đấu giá
+            <div>Giá hiện tại:</div>
+            <div>llala</div>
+            <Button>Trả giá</Button>
           </div>
         </div>
       </section>

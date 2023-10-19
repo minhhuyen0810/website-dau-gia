@@ -15,7 +15,7 @@ const DefaultLayout: FC<{ children?: any }> = ({ children }) => {
           href="/apple-touch-icon.png"
         /> */}
         <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* <link rel="manifest" href="/site.webmanifest" /> */}
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>

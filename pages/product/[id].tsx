@@ -60,7 +60,7 @@ const DetailProductPage = () => {
   const _handleRegisterAuction = async (id: any) => {
     if (authReducer.id_token) {
       try {
-        console.log('id_token: ', authReducer.id_token);
+        // console.log('id_token: ', authReducer.id_token);
         await auctionService.registerAuction(id);
         toast.success('Đăng ký thành công');
       } catch (err) {
