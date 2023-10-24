@@ -5,17 +5,19 @@ import userService from '../../services/user.service';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import api from '../../api/api';
+import { useRouter } from 'next/router';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const router = useRouter();
   const onFinish = async (values: any) => {
     try {
       const body = { ...values, activationKey: '', resetDate: '' };
       console.log('Received values:', body);
       await userService.register(body);
       toast.success('Đăng ký thành công');
-      form.resetFields();
+      router.push('/login');
     } catch (err) {
       toast.error('Bị lỗi: ' + err + ' Vui lòng liên hệ quản trị viên');
     }

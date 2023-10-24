@@ -8,7 +8,7 @@ import { getDetailProductAction } from '../../../store/slices/product.slice';
 import { io } from 'socket.io-client';
 import { Button } from 'antd';
 
-const socket = io('http://103.82.24.232:8181/');
+const socket = io('http://localhost:8181/');
 const DetailAuctionProductPage = () => {
   const router = useRouter();
   const { productId } = router.query;
@@ -17,7 +17,7 @@ const DetailAuctionProductPage = () => {
   const [historyAuctionData, setHistoryAuctionData] = useState<any>();
   const authReducer = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [socketMessage, setSocketMessage] = useState<any>();
   //Effect
   useEffect(() => {
     if (productId) {
@@ -34,19 +34,17 @@ const DetailAuctionProductPage = () => {
       const token = authReducer.id_token;
       // debugger;
       const topic = `auction/${productId}`;
-      // socket.emit('subscribeToAuction', { topic });
-      socket.on(topic, () => {
+      socket.on(topic, (message: any) => {
+        setSocketMessage(message);
         console.log('Kết nối thành công');
       });
-      // socket.on('error', (error) => {
-      //   console.error(`Socket error: ${error}`);
-      // });
+
       return () => {
         // Ngắt kết nối khi component bị hủy
         socket.emit('unsubscribeFromAuction', topic);
       };
     }
-  }, []);
+  }, [socketMessage]);
   //Function
   function formatCurrency(number: any) {
     const formatter = new Intl.NumberFormat('vi-VN', {
