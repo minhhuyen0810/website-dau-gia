@@ -7,8 +7,9 @@ import useTranslation from 'next-translate/useTranslation';
 import { getDetailProductAction } from '../../../store/slices/product.slice';
 import { io } from 'socket.io-client';
 import { Button } from 'antd';
+import {WebsocketUtil} from "../../../util/socket.util";
 
-const socket = io('http://localhost:8181/');
+// const socket = io('http://localhost:8181/');
 const DetailAuctionProductPage = () => {
   const router = useRouter();
   const { productId } = router.query;
@@ -33,16 +34,29 @@ const DetailAuctionProductPage = () => {
     if (authReducer.id_token) {
       const token = authReducer.id_token;
       // debugger;
-      const topic = `auction/${productId}`;
-      socket.on(topic, (message: any) => {
-        setSocketMessage(message);
-        console.log('Kết nối thành công');
-      });
+      // const topic = `auction/${productId}`;
 
-      return () => {
-        // Ngắt kết nối khi component bị hủy
-        socket.emit('unsubscribeFromAuction', topic);
-      };
+      const topic = `/topic/auction/11`;
+      const socket = new WebsocketUtil();
+      socket.configure({
+        host: 'http://localhost:8181/ws',
+        debug: true,
+        recTimeout: 5000
+      })
+      socket.startConnect(() => {}).then(() => {
+        socket.subscribe(topic,
+            (message: any) => console.log(message),
+            token)
+      })
+      // socket.on(topic, (message: any) => {
+      //   setSocketMessage(message);
+      //   console.log('Kết nối thành công');
+      // });
+      //
+      // return () => {
+      //   // Ngắt kết nối khi component bị hủy
+      //   socket.emit('unsubscribeFromAuction', topic);
+      // };
     }
   }, [socketMessage]);
   //Function
