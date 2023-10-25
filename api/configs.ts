@@ -1,8 +1,6 @@
 export const Config = {
-  URL_API: 'https://api.viettelmanufacturing.vn/',
   // URL_API: 'http://103.82.24.232:8181/',
-  // URL_API: 'http://localhost:36635/',
-  // URL_API_ERP: 'http://192.168.18.33:8084/',
+  URL_API: 'http://localhost:8181/',
 };
 
 export const RESPONSE_STATUS = {
@@ -25,8 +23,6 @@ export interface IResponseErrorHandle {
   message: string;
   statusCode: number;
 }
-
-
 
 export interface IHomePostResponse {
   result: IResponse[]; // depend on model

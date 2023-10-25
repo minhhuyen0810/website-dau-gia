@@ -1,9 +1,26 @@
+import { toast } from 'react-toastify';
 import withAppProvider from '../../layout/wrapper/withAppProvider';
 import { Form, Input, Button, Row, Col } from 'antd';
+import userService from '../../services/user.service';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import api from '../../api/api';
+import { useRouter } from 'next/router';
 
 const RegisterPage = () => {
-  const onFinish = (values: any) => {
-    console.log('Received values:', values);
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const router = useRouter();
+  const onFinish = async (values: any) => {
+    try {
+      const body = { ...values, activationKey: '', resetDate: '' };
+      console.log('Received values:', body);
+      await userService.register(body);
+      toast.success('Đăng ký thành công');
+      router.push('/login');
+    } catch (err) {
+      toast.error('Bị lỗi: ' + err + ' Vui lòng liên hệ quản trị viên');
+    }
   };
 
   return (
@@ -14,6 +31,7 @@ const RegisterPage = () => {
       <Row justify="center" align="middle" style={{ padding: '0 20px' }}>
         <Col xs={24} sm={18} md={12} lg={8}>
           <Form
+            form={form}
             name="registration"
             onFinish={onFinish}
             initialValues={{ remember: true }}
@@ -24,6 +42,10 @@ const RegisterPage = () => {
               name="email"
               rules={[
                 {
+                  type: 'email',
+                  message: 'Đây không phải là email',
+                },
+                {
                   required: true,
                   message: 'Please input your email!',
                 },
@@ -31,10 +53,9 @@ const RegisterPage = () => {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               label="First Name"
-              name="firstname"
+              name="firstName"
               rules={[
                 {
                   required: true,
@@ -47,7 +68,7 @@ const RegisterPage = () => {
 
             <Form.Item
               label="Last Name"
-              name="lastname"
+              name="lastName"
               rules={[
                 {
                   required: true,
@@ -63,6 +84,12 @@ const RegisterPage = () => {
               name="password"
               rules={[
                 {
+                  pattern:
+                    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!])(?=.{8,}).*$/,
+                  message:
+                    'Password phải chứa ít nhất 8 ký tự, có chứa chữ hoa, chữ số, ký tự đặc biệt',
+                },
+                {
                   required: true,
                   message: 'Please input your password!',
                 },
@@ -75,6 +102,10 @@ const RegisterPage = () => {
               label="Phone"
               name="phone"
               rules={[
+                {
+                  pattern: /^(\+84|0)(\d{9,10})$/,
+                  message: 'Sai định dạng số điện thoại',
+                },
                 {
                   required: true,
                   message: 'Please input your phone number!',
@@ -98,7 +129,11 @@ const RegisterPage = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button
+                className="flex justify-center"
+                type="primary"
+                htmlType="submit"
+              >
                 Đăng ký
               </Button>
             </Form.Item>

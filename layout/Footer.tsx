@@ -3,9 +3,7 @@ import { FC } from 'react';
 import { CategoryInterface } from '../model/category';
 import useTranslation from 'next-translate/useTranslation';
 
-interface IFooter {
-  categories: CategoryInterface[] | null;
-}
+interface IFooter {}
 const Footer: FC<IFooter> = (props: IFooter) => {
   const { t } = useTranslation('common');
   return (

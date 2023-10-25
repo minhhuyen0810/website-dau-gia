@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { useAppSelector } from '../../store/hook';
-import { getHeaderCategoriesAction } from '../../store/slices/common.slice';
+// import { getHeaderCategoriesAction } from '../../store/slices/common.slice';
 
 import Footer from '../Footer';
 import Header from '../Header';
@@ -12,9 +12,7 @@ import SideBar from '../Sidebar';
 const withAppProvider = (Page: any) => {
   const VTComponent = (props: any) => {
     const dispatch = useDispatch();
-    const headerCategoriesData = useAppSelector(
-      (state) => state.common.headerCategories
-    );
+
     const [isSmallMobile, setIsSmallMobile] = useState<boolean>(false);
     const [sticky, setSticky] = useState(false);
 
@@ -29,7 +27,7 @@ const withAppProvider = (Page: any) => {
       }
     };
     useEffect(() => {
-      initialize();
+      // initialize();
       if (window && window.outerWidth <= 375) {
         setIsSmallMobile(true);
       }
@@ -41,18 +39,14 @@ const withAppProvider = (Page: any) => {
     useEffect(() => {}, []);
 
     // FUNCTION
-    const initialize = () => {
-      if (!headerCategoriesData || headerCategoriesData.length <= 0)
-        dispatch(getHeaderCategoriesAction() as any);
-    };
     return (
       <div className="wrapper-layout">
-        <Header isScroll={sticky} categories={headerCategoriesData} />
-        <SideBar categories={headerCategoriesData} />
+        <Header isScroll={sticky} />
+        <SideBar />
         <div className="wrap-content-page">
           <Page {...props} isSmallMobile={isSmallMobile} />
         </div>
-        <Footer categories={headerCategoriesData} />
+        <Footer />
         <ToastContainer />
       </div>
     );

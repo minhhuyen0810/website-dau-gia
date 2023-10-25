@@ -8,6 +8,7 @@ import {
   RESPONSE_STATUS,
   IResponseLogin,
 } from './configs';
+import { getToken } from '../util';
 const _responseConfig = async (response: Response) => {
   if (
     response.status === RESPONSE_STATUS.SUCCESS ||
@@ -17,18 +18,10 @@ const _responseConfig = async (response: Response) => {
   }
 
   if (response.status === RESPONSE_STATUS.ACCESS_DENIED) {
-    localStorage.clear();
+    // localStorage.clear();
     // window.location.href = "/login";
-    const responseLogin: IResponseLogin = await authService.login({});
-    localStorage.setItem(
-      KeyConfigLocal.TOKEN,
-      responseLogin.access_token as string
-    );
-    localStorage.setItem(
-      KeyConfigLocal.USER,
-      JSON.stringify(responseLogin.user)
-    );
-    toast.warn('Tải lại trang để cập nhật dữ liệu');
+    // const responseLogin: IResponseLogin = await authService.login({});
+    localStorage.clear();
     return response.json();
   }
 
@@ -50,29 +43,45 @@ const _responseConfig = async (response: Response) => {
   //   throw Error(result.error_description);
   // }
 };
+const postServiceAuthori = async <T>(url: string): Promise<T> => {
+  try {
+    const headers: any = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    };
+    const requestInit: any = { method: 'POST', headers };
 
+    const response = await fetch(`${Config.URL_API}${url}`, requestInit);
+
+    return await _responseConfig(response);
+  } catch (error: any) {
+    console.log(error);
+    throw error;
+  }
+};
 const postService = async <T>(
   url: string,
   body: object,
-  isAuthorization = true,
+  isAuthorization = false,
   isFormData = false
 ): Promise<T> => {
   try {
     const headers: any = isFormData
       ? {}
       : { Accept: 'application/json', 'Content-Type': 'application/json' };
-    // if (isAuthorization) {
-    //   headers.Authorization = `Bearer ${localStorage.getItem(
-    //     KeyConfigLocal.TOKEN
-    //   )}`;
-    // }
+    if (isAuthorization) {
+      headers.Authorization = `Bearer ${localStorage.getItem(
+        KeyConfigLocal.TOKEN
+      )}`;
+    }
+
     const requestInit: any = { method: 'POST', headers };
     if (body)
-      if (isFormData) requestInit.body = body;
-      else requestInit.body = JSON.stringify(body);
-
+      isFormData
+        ? (requestInit.body = body)
+        : (requestInit.body = JSON.stringify(body));
     const response = await fetch(`${Config.URL_API}${url}`, requestInit);
-
     return await _responseConfig(response);
   } catch (error: any) {
     console.log(error);
@@ -92,15 +101,13 @@ const getService = async <T>(
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
+    if (isAuthorization) {
+      headers.Authorization = `Bearer ${getToken()}`;
+    }
     const requestInit: any = { method: 'GET', headers };
     if (body) requestInit.body = JSON.stringify(body);
     let queryString = '';
     const paramsData: string[] = [];
-    let language = await localStorage.getItem(KeyConfigLocal.LANGUAGE);
-    if (!language) {
-      language = 'vi';
-    }
-    params = { ...params, language };
     if (params && !isEmpty(params)) {
       Object.keys(params).forEach((key) => {
         if (
@@ -118,9 +125,8 @@ const getService = async <T>(
     );
     return await _responseConfig(response);
   } catch (error: any) {
-    // showToast(error.message, "error");
     throw error;
   }
 };
 
-export default { postService, getService };
+export default { postService, getService, postServiceAuthori };

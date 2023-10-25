@@ -17,17 +17,10 @@ import { PartnerInterface } from '../model/partner';
 import { PostInterface } from '../model/post';
 import animationService from '../services/animation.service';
 import { useAppSelector } from '../store/hook';
-import {
-  getCertificatesAction,
-  getPartnersAction,
-} from '../store/slices/common.slice';
-import {
-  getBannersAction,
-  getHomeCategoriesAction,
-  getPostHighlightsAction,
-} from '../store/slices/home.slice';
 import { DisplayEnum } from '../types/display.interface';
 import { PropsPageInterface } from '../types/page.interface';
+import { useEffectOnce } from 'react-use';
+import { debug } from 'console';
 
 const HomePage = (props: PropsPageInterface) => {
   const { t } = useTranslation('common');
@@ -73,30 +66,13 @@ const HomePage = (props: PropsPageInterface) => {
   });
   const [employee, setEmployee] = useState<number>(900);
   const [country, setCountry] = useState<number>(0);
-
+  // useEffectOnce(() => {
+  //   var token = localStorage.getItem('token');
+  // });
   // EFFECT
   useEffect(() => {
-    initialize();
+    // initialize();
     animationService.scrollTrigger('#banners');
-  }, []);
-  useEffect(() => {
-    if (homeState) {
-      setHomeData({
-        ...homeData,
-        banners: homeState.banners?.sliders ? homeState.banners?.sliders : [],
-        categories: homeState.categories,
-        postSelected: homeState.businessPostSelected,
-        postHighlights: homeState.postHighlights,
-        partners: commonState.partners,
-        certificates: commonState.certificates,
-        isLoadingBanner: homeState.isLoadingBanner,
-      });
-    }
-  }, [homeState]);
-
-  useEffect(() => {
-    dispatch(getHomeCategoriesAction() as any);
-    dispatch(getPostHighlightsAction() as any);
   }, []);
 
   useEffect(() => {
@@ -145,15 +121,15 @@ const HomePage = (props: PropsPageInterface) => {
     router.push('/capacity');
   };
 
-  const initialize = () => {
-    dispatch(getBannersAction() as any);
-    if (!commonState.partners || commonState.partners.length <= 0) {
-      dispatch(getPartnersAction() as any);
-    }
-    if (!commonState.certificates || commonState.certificates.length <= 0) {
-      dispatch(getCertificatesAction() as any);
-    }
-  };
+  // const initialize = () => {
+  //   dispatch(getBannersAction() as any);
+  //   if (!commonState.partners || commonState.partners.length <= 0) {
+  //     dispatch(getPartnersAction() as any);
+  //   }
+  //   if (!commonState.certificates || commonState.certificates.length <= 0) {
+  //     dispatch(getCertificatesAction() as any);
+  //   }
+  // };
 
   const onChange = (currentSlide: number) => {
     console.log(currentSlide);
@@ -446,22 +422,6 @@ const HomePage = (props: PropsPageInterface) => {
           </div>
         </Carousel>
       </section>
-
-      {/* {homeData.categories &&
-        homeData.categories.map((category: CategoryInterface) => (
-          <section className="section animation-title" key={category.id}>
-            {renderSection(category)}
-          </section>
-        ))} */}
-      {/* <SectionView
-        postHighlights={homeData.postHighlights}
-        category={
-          {
-            title: t('HOT_NEW'),
-            type: DisplayEnum.POST_HIGHLIGHT_CONTAINER,
-          } as CategoryInterface
-        }
-      /> */}
       <section className="section section-partner">
         <div className="section-dark section-pad">
           <Title title={t('PARTNER')} cssClass="title-common underline" />

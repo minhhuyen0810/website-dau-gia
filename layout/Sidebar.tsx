@@ -13,13 +13,10 @@ import { ILanguage } from './Header';
 import { URL_AUCTION, URL_PRODUCT, URL_ROOT } from './types/url.inteface';
 import setLanguage from 'next-translate/setLanguage';
 import { KeyConfigLocal } from '../api/configs';
-import LoginModal from './components/LoginModal';
 
 const { Search } = Input;
 
-const SideBar: FC<{ categories: CategoryInterface[] | null }> = ({
-  categories,
-}) => {
+const SideBar: FC<{}> = ({}) => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [activeSearch, setActiveSearch] = useState(false);
@@ -28,17 +25,6 @@ const SideBar: FC<{ categories: CategoryInterface[] | null }> = ({
     setShowSidebar(!showSidebar);
   };
   const router = useRouter();
-
-  const toggleSearch = (e: any) => {
-    e.stopPropagation();
-    setActiveSearch(!activeSearch);
-  };
-
-  const toggleMenuItem = (index: number) => {
-    setActiveMenu(index === activeMenu ? -1 : index);
-  };
-
-  const onSearch = (value: string) => console.log(value);
 
   // RENDER
   const Title = (
@@ -67,7 +53,6 @@ const SideBar: FC<{ categories: CategoryInterface[] | null }> = ({
         </a>
       </div>
       <div className="sidebar-right">
-        <LoginModal />
         <button
           id="nav-icon"
           aria-label="Button nav"
