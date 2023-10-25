@@ -43,7 +43,7 @@ const _responseConfig = async (response: Response) => {
   //   throw Error(result.error_description);
   // }
 };
-const postServiceRegister = async <T>(url: string): Promise<T> => {
+const postServiceAuthori = async <T>(url: string): Promise<T> => {
   try {
     const headers: any = {
       Accept: 'application/json',
@@ -125,9 +125,8 @@ const getService = async <T>(
     );
     return await _responseConfig(response);
   } catch (error: any) {
-    // showToast(error.message, "error");
     throw error;
   }
 };
 
-export default { postService, getService, postServiceRegister };
+export default { postService, getService, postServiceAuthori };
